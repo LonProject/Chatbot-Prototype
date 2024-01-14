@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Command Interface</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 10px;
+        }
+        #output {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid white;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="output"></div>
+    <input id="input" type="text" autofocus>
+    <script>
+        const outputDiv = document.getElementById('output');
+        const inputField = document.getElementById('input');
+
+        const commandResponses = {
+            "hello": "Hello there!",
+            "hi": "Hello there!",
+            "hey": "Hello there!",
+            "hiya": "Hello there!",
+            "yo": "Hello there!",
+            "yow": "Hello there!",
+            "whats up": "Hello there!",
+            "whats good": "Hello there!",
+            "konichiwa": "Hello there!",
+            "how are you": "I'm just a robot, but I'm doing fine!",
+            "what's your name": "I'm CMD!",
+            "who are you": "I'm CMD",
+            // Add more custom commands and responses here
+        };
+
+        inputField.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const userInput = inputField.value.toLowerCase();
+                const outputLine = document.createElement('p');
+                outputLine.textContent = '> ' + userInput;
+                outputDiv.appendChild(outputLine);
+                inputField.value = '';
+
+                let response = "I'm sorry, I don't understand.";
+                for (const command in commandResponses) {
+                    if (userInput.includes(command)) {
+                        response = commandResponses[command];
+                        break;
+                    }
+                }
+
+                const responseLine = document.createElement('p');
+                responseLine.textContent = response;
+                outputDiv.appendChild(responseLine);
+
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
